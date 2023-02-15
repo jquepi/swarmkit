@@ -26,7 +26,7 @@ require (
 	github.com/opencontainers/image-spec v1.0.2
 	github.com/phayes/permbits v0.0.0-20160117212716-f7e3ac5e859d
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/client_golang v1.11.0
+	github.com/prometheus/client_golang v1.11.1
 	github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a
 	github.com/rexray/gocsi v1.2.1
 	github.com/sirupsen/logrus v1.8.1
