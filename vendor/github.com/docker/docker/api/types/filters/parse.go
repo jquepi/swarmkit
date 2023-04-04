@@ -1,4 +1,5 @@
-/*Package filters provides tools for encoding a mapping of keys to a set of
+/*
+Package filters provides tools for encoding a mapping of keys to a set of
 multiple values.
 */
 package filters // import "github.com/docker/docker/api/types/filters"
@@ -49,7 +50,7 @@ func (args Args) Keys() []string {
 // MarshalJSON returns a JSON byte representation of the Args
 func (args Args) MarshalJSON() ([]byte, error) {
 	if len(args.fields) == 0 {
-		return []byte{}, nil
+		return []byte("{}"), nil
 	}
 	return json.Marshal(args.fields)
 }
@@ -107,9 +108,6 @@ func FromJSON(p string) (Args, error) {
 
 // UnmarshalJSON populates the Args from JSON encode bytes
 func (args Args) UnmarshalJSON(raw []byte) error {
-	if len(raw) == 0 {
-		return nil
-	}
 	return json.Unmarshal(raw, &args.fields)
 }
 

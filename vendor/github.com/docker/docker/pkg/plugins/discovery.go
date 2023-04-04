@@ -3,6 +3,7 @@ package plugins // import "github.com/docker/docker/pkg/plugins"
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -40,7 +41,7 @@ func Scan() ([]string, error) {
 				continue
 			}
 
-			entry = fileInfoToDirEntry(fi)
+			entry = fs.FileInfoToDirEntry(fi)
 		}
 
 		if entry.Type()&os.ModeSocket != 0 {
@@ -48,7 +49,7 @@ func Scan() ([]string, error) {
 		}
 	}
 
-	for _, p := range specsPaths {
+	for _, p := range SpecsPaths() {
 		dirEntries, err := os.ReadDir(p)
 		if err != nil && !os.IsNotExist(err) {
 			return nil, errors.Wrap(err, "error reading dir entries")
@@ -92,7 +93,7 @@ func (l *localRegistry) Plugin(name string) (*Plugin, error) {
 	}
 
 	var txtspecpaths []string
-	for _, p := range specsPaths {
+	for _, p := range SpecsPaths() {
 		txtspecpaths = append(txtspecpaths, pluginPaths(p, name, ".spec")...)
 		txtspecpaths = append(txtspecpaths, pluginPaths(p, name, ".json")...)
 	}
